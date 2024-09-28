@@ -423,7 +423,7 @@ def check_suspect():
         elif suspect_upper in ivo:
             st.image("assets/Ivo.png")
         elif suspect_upper in loes:
-            st.image("assets/geen_afbeelding.png")
+            st.image("assets/Loes.png")
         elif suspect_upper in meike:
             st.image("assets/geen_afbeelding.png")
 
