@@ -1,5 +1,4 @@
 import streamlit as st
-import dataclasses
 import helper_functions
 import time
 import random
@@ -69,18 +68,19 @@ def check_suspect():
     isabel = ["ISABEL", "ISAEL", "ISABELLE"]
 
 
-    st.session_state.suspect = st.text_input(
+    st.text_input(
             f"Voer de naam van de verdachte in 👇",
             type="default",
             placeholder="naam",
-            value=''
+            value='',
+            key='suspect'
         )
 
     if st.session_state.suspect == "":
         st.warning("**Voer een naam in!**")
         return  # Exit early if the input is empty
 
-    st.session_state.suspect = st.session_state.suspect.upper()
+    suspect_upper = st.session_state.suspect.upper()
 
     st.checkbox("Foto uploaden", key="pic_disabled")
 
@@ -105,7 +105,7 @@ def check_suspect():
     ###############################################################
     # ANNEMARIE
     ###############################################################
-    if st.session_state.suspect in annemarie:
+    if suspect_upper in annemarie:
 
         with col1:
             st.header("Alibi")
@@ -134,7 +134,7 @@ def check_suspect():
     ###############################################################
     # MEYKE
     ###############################################################
-    elif st.session_state.suspect in meyke:
+    elif suspect_upper in meyke:
 
         with col1:
             st.header("Alibi")
@@ -175,7 +175,7 @@ def check_suspect():
     ###############################################################
     # ISABEL
     ###############################################################
-    elif st.session_state.suspect in isabel:
+    elif suspect_upper in isabel:
 
         with col1:
             st.header("Alibi")
@@ -238,7 +238,7 @@ def check_suspect():
     # BEN
     # @ Meyke nog map aanpassen
     ###############################################################
-    elif st.session_state.suspect in ben:
+    elif suspect_upper in ben:
 
         with col1:
             st.header("Alibi")
@@ -307,7 +307,7 @@ def check_suspect():
     # IVO
     # @ Meyke map aanpassen
     ###############################################################
-    elif st.session_state.suspect in ivo:
+    elif suspect_upper in ivo:
 
         with col1:
             st.header("Alibi")
@@ -338,7 +338,7 @@ def check_suspect():
     # LOES
     # @ Meyke map aanpassen
     ###############################################################
-    elif st.session_state.suspect in loes:
+    elif suspect_upper in loes:
 
         with col1:
             st.header("Alibi")
@@ -382,7 +382,7 @@ def check_suspect():
     # Meike
     # @ Meyke map aanpassen
     ###############################################################
-    elif st.session_state.suspect in meike:
+    elif suspect_upper in meike:
 
         with col1:
             st.header("Alibi")
@@ -412,24 +412,25 @@ def check_suspect():
         st.write(f"Onderoeksresultaat voor {hm_suspect}:")
 
         # Display the appropriate image based on the suspect
-        if st.session_state.suspect in annemarie:
+        if suspect_upper in annemarie:
             st.image("assets/Annemarie.png")
-        elif st.session_state.suspect in meyke:
+        elif suspect_upper in meyke:
             st.image("assets/Meyke.png")
-        elif st.session_state.suspect in isabel:
+        elif suspect_upper in isabel:
             st.image("assets/geen_afbeelding_isabel.png")
-        elif st.session_state.suspect in ben:
+        elif suspect_upper in ben:
             st.image("assets/geen_afbeelding.png")
-        elif st.session_state.suspect in ivo:
+        elif suspect_upper in ivo:
             st.image("assets/Ivo.png")
-        elif st.session_state.suspect in loes:
+        elif suspect_upper in loes:
             st.image("assets/geen_afbeelding.png")
-        elif st.session_state.suspect in meike:
+        elif suspect_upper in meike:
             st.image("assets/geen_afbeelding.png")
 
-    st.session_state.results_disabled = st.toggle("Show resultaten")
+    st.session_state.results_disabled = st.toggle("Show resultaten", value=st.session_state.results_disabled)
     if st.session_state.results_disabled:
         result(st.session_state.suspect)
+
 
     if st.button("Reset - Check een nieuwe verdachte"):
         # Clear the session state
