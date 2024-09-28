@@ -427,7 +427,7 @@ def check_suspect():
         elif st.session_state.suspect in meike:
             st.image("assets/geen_afbeelding.png")
 
-    st.checkbox("Show resultaten", key="results_disabled")
+    st.session_state.results_disabled = st.toggle("Show resultaten")
     if st.session_state.results_disabled:
         result(st.session_state.suspect)
 
