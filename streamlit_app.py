@@ -1,4 +1,5 @@
 import streamlit as st
+import dataclasses
 import helper_functions
 import time
 import random
@@ -66,6 +67,10 @@ def check_suspect():
     meike = ["MEIKE", "MEIKE", "MAIKE"]
     loes = ["LOES"]
     isabel = ["ISABEL", "ISAEL", "ISABELLE"]
+    detectives = ["DETECTIVES", "DETECTIVE", "THE DETECTIVES", "DE DETECTIVES"]
+    flamingos = ["FLAMINGOS", "FLAMINGO'S"]
+    uilenspionnen = ["UILENSPIONNEN", "UILESPIONNEN", "UILEN SPIONNEN", "UILE SPIONNEN"]
+    gang = ["DETECTIVE GANG", "DETECTIVE-GANG", "GANG"]
 
 
     st.text_input(
@@ -389,7 +394,7 @@ def check_suspect():
             start_lat = 51.60785
             start_lon = 5.32082
             df = pd.DataFrame(
-                np.random.randn(100, 2) / [50, 50] + [start_lat, start_lon],
+                np.random.randn(2, 2) / [50, 50] + [start_lat, start_lon],
                 columns=["lat", "lon"],
             )
             st.map(df)
@@ -404,12 +409,160 @@ def check_suspect():
 
             st.bar_chart(chart_data, height=600)
 
+    ###############################################################
+    # Detectives
+    # @ Meyke map aanpassen
+    ###############################################################
+    elif suspect_upper in detectives:
+
+        with col1:
+            st.header("Alibi")
+            data = {
+                'lat': [51.60785, 51.60785],
+                'lon': [5.32082, 5.32082],
+                'color': ['#004182', '#c30010'],
+                'size': [100, 10]
+            }
+
+            # Create the DataFrame
+            df = pd.DataFrame(data)
+            st.map(df, color='color', size='size', zoom=14)
+
+            code = '''Afstand tot plaats delict: 0 meter'''
+            st.code(code, language="python")
+
+        with col2:
+            st.header("Activiteiten")
+
+            chart_data = pd.DataFrame(np.random.randn(20, 5),
+                                      columns=["Jorn", "Ytse", "Rowan", "Rehan", "Djairo"])
+
+            st.bar_chart(chart_data, height=600)
+
+    ###############################################################
+    # Flamingo
+    # @ Meyke map aanpassen
+    ###############################################################
+    elif suspect_upper in flamingos:
+
+        with col1:
+            st.header("Alibi")
+            data = {
+                'lat': [51.60785, 51.60785],
+                'lon': [5.32082, 5.32082],
+                'color': ['#004182', '#c30010'],
+                'size': [100, 10]
+            }
+
+            # Create the DataFrame
+            df = pd.DataFrame(data)
+            st.map(df, color='color', size='size', zoom=14)
+
+            code = '''Afstand tot plaats delict: 0 meter'''
+            st.code(code, language="python")
+
+        with col2:
+            st.header("Activiteiten")
+
+            chart_data = pd.DataFrame(np.random.randn(25, 2),
+                                      columns=["Getuigenverhoor", "Technisch recherchewerk"])
+            words = ["Lina", "Ouassin", "Ronin", "Guusje"]
+            chart_data["Inlichtingen"] = [random.choice(words) for _ in range(25)]
+
+            st.vega_lite_chart(
+                chart_data,
+                {
+                    "mark": "point",
+                    "encoding": {
+                        "x": {"field": "Getuigenverhoor", "type": "quantitative"},
+                        "y": {"field": "Technisch recherchewerk", "type": "quantitative"},
+                        "size": {"field": "Inlichtingen", "type": "nominal"},
+                        "color": {"field": "Inlichtingen", "type": "nominal"},
+                    },
+                },
+                use_container_width=True
+            )
+
+    ###############################################################
+    # Gang
+    # @ Meyke map aanpassen
+    ###############################################################
+    elif suspect_upper in gang:
+
+        with col1:
+            st.header("Alibi")
+            data = {
+                'lat': [51.60785, 51.60785],
+                'lon': [5.32082, 5.32082],
+                'color': ['#004182', '#c30010'],
+                'size': [100, 10]
+            }
+
+            # Create the DataFrame
+            df = pd.DataFrame(data)
+            st.map(df, color='color', size='size', zoom=14)
+
+            code = '''Afstand tot plaats delict: 0 meter'''
+            st.code(code, language="python")
+
+        with col2:
+            st.header("Inlichtingen")
+
+            chart_data = pd.DataFrame(np.random.randn(20, 5),
+                                      columns=["Bes", "Veerle", "Tijs", "Thaniel", "Niels"])
+
+            st.bar_chart(chart_data, height=600)
+
+    ###############################################################
+    # Uilenspionnen
+    # @ Meyke map aanpassen
+    ###############################################################
+    elif suspect_upper in uilenspionnen:
+
+        with col1:
+            st.header("Alibi")
+            data = {
+                'lat': [51.60785, 51.60785],
+                'lon': [5.32082, 5.32082],
+                'color': ['#004182', '#c30010'],
+                'size': [100, 10]
+            }
+
+            # Create the DataFrame
+            df = pd.DataFrame(data)
+            st.map(df, color='color', size='size', zoom=14)
+
+            code = '''Afstand tot plaats delict: 0 meter'''
+            st.code(code, language="python")
+
+        with col2:
+            st.header("Inlichtingen")
+
+            chart_data = pd.DataFrame(np.random.randn(25, 2),
+                                      columns=["Getuigenverhoor", "Technisch recherchewerk"])
+            words = ["Julie", "Ben", "Lizzy", "Jasper", "David"]
+            chart_data["Inlichtingen"] = [random.choice(words) for _ in range(25)]
+
+            st.vega_lite_chart(
+                chart_data,
+                {
+                    "mark": "point",
+                    "encoding": {
+                        "x": {"field": "Getuigenverhoor", "type": "quantitative"},
+                        "y": {"field": "Technisch recherchewerk", "type": "quantitative"},
+                        "size": {"field": "Inlichtingen", "type": "nominal"},
+                        "color": {"field": "Inlichtingen", "type": "nominal"},
+                    },
+                },
+                use_container_width=True
+            )
+
     else:
         st.write('Dit is geen verdachte in het onderzoek naar het verdwenen fosiel.')
 
     @st.dialog("Resultaten Onderzoek")
     def result(hm_suspect):
-        st.write(f"Onderoeksresultaat voor {hm_suspect}:")
+        st.write(f"Onderbroeksresultaat voor {hm_suspect}:")
 
         # Display the appropriate image based on the suspect
         if suspect_upper in annemarie:
@@ -417,7 +570,7 @@ def check_suspect():
         elif suspect_upper in meyke:
             st.image("assets/Meyke.png")
         elif suspect_upper in isabel:
-            st.image("assets/geen_afbeelding_isabel.png")
+            st.image("assets/isabel.png")
         elif suspect_upper in ben:
             st.image("assets/geen_afbeelding.png")
         elif suspect_upper in ivo:
@@ -426,6 +579,14 @@ def check_suspect():
             st.image("assets/Loes.png")
         elif suspect_upper in meike:
             st.image("assets/geen_afbeelding.png")
+        elif suspect_upper in uilenspionnen:
+            st.image("assets/uilenspionnen.png")
+        elif suspect_upper in gang:
+            st.image("assets/detective_gang.png")
+        elif suspect_upper in detectives:
+            st.image("assets/detectives.png")
+        elif suspect_upper in flamingos:
+            st.image("assets/flamingos.png")
 
     st.session_state.results_disabled = st.toggle("Show resultaten", value=st.session_state.results_disabled)
     if st.session_state.results_disabled:
@@ -441,6 +602,11 @@ def check_suspect():
 
         # Rerun the app
         st.rerun()
+
+
+
+
+
 
 
 
